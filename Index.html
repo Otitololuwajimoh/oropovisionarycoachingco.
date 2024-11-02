@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUCA Video Conference with Notes</title>
+    <style>
+        /* Basic Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            /* Prevent scrolling */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f2f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 15px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: #45a049;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            flex: 1;
+            /* Take up remaining space after navbar */
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        /* Iframe and Notes Section */
+        .iframe-container {
+            flex: 1;
+            height: 100%;
+            position: relative;
+        }
+
+        .iframe-container iframe {
+            height: 100%;
+            width: 100%;
+            border: none;
+        }
+
+        /* Overlay to Hide Branding at Top */
+        .iframe-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            /* Adjust this height as needed */
+            background-color: #333;
+            z-index: 2;
+        }
+
+        /* Notes Section */
+        .notes-container {
+            width: 0;
+            overflow: hidden;
+            background-color: #ffffff;
+            border-left: 2px solid #4CAF50;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: width 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .notes-container.active {
+            width: 30%;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notes-container textarea {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            resize: none;
+            transition: box-shadow 0.3s ease;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .notes-container textarea:focus {
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        ::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar with Toggle Button -->
+    <div class="navbar">
+        <h2>EDUCA Video Conference</h2>
+        <button onclick="toggleNotes()">Toggle Notes</button>
+    </div>
+
+    <div class="container">
+        <!-- Iframe Container with Overlay to Cover Branding -->
+        <div class="iframe-container">
+            <iframe src="https://educa.whereby.com/otitololuwab2d29dea-694d-4a2d-9bfa-e4a9f68b76e9"
+                allow="camera; microphone; fullscreen; speaker; display-capture; compute-pressure">
+            </iframe>
+            <!-- Overlay at Top of Iframe -->
+            <div class="iframe-overlay"></div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="notes-container" id="notesContainer">
+            <textarea placeholder="Write your notes here..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        function toggleNotes() {
+            const notesContainer = document.getElementById('notesContainer');
+            const iframeContainer = document.getElementById('iframeContainer');
+            notesContainer.classList.toggle('active');
+            iframeContainer.style.flex = notesContainer.classList.contains('active') ? '2' : '1';
+        }
+    </script>
+
+</body>
+
+</html>
